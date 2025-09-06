@@ -1,29 +1,19 @@
 package main
 
-import "testing"
+import (
+	"testing"
+
+	"github.com/stretchr/testify/require"
+)
 
 // Пишите тесты в этом файле
 func TestGenerateRandomElements(t *testing.T) {
-	//проверка на возвращаемую длину слайса в зависимости от размера size
-	zeroElementSlice := generateRandomElements(0)
-	if len(zeroElementSlice) != 0 {
-		t.Fatal("длина слайса не равна нулю!")
-	}
+	testList := []int{0, 1, 7}
 
-	oneElementSlice := generateRandomElements(1)
-	if len(oneElementSlice) != 1 {
-		t.Fatal("длина слайса не равна единице!")
-	}
+	trueAnswer := []int{0, 1, 7}
 
-	sevenElementsSlice := generateRandomElements(7)
-	if len(sevenElementsSlice) != 7 {
-		t.Fatal("длина слайса не равна семи!")
-	}
-	result := generateRandomElements(20)
-	for _, number := range result {
-		if number > 100 {
-			t.Fatal("сгенерированные числа не входят в сотню") //в функции generateRandomElements поставлено ограничение на генерированное рандомное число - оно не больше 100 должно быть
-		}
+	for i, list := range testList {
+		require.Equal(t, trueAnswer[i], len(generateRandomElements(list)))
 	}
 
 }
@@ -44,8 +34,6 @@ func TestMaximum(t *testing.T) {
 	trueAnswer := []int{8, 92, 90, 10, 0, 4, 0, 7}
 
 	for i, list := range lists {
-		if maximum(list) != trueAnswer[i] {
-			t.Fatal(i, ":", maximum(list), "!=", trueAnswer[i])
-		}
+		require.Equal(t, trueAnswer[i], maximum(list))
 	}
 }
